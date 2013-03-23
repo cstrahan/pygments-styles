@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require 'shellwords'
+require 'tempfile'
+require 'pty'
+
+VIM_THEME = ARGV.shift
+BASENAME = File.basename(VIM_THEME, ".vim")
+
+def main
+  file = Tempfile.new(BASENAME)
+  vim_out = run("vim -c 'set t_Co=256' -c 'source #{VIM_THEME}' -c 'redir >> #{file.path.shellescape} | silent hi | redir END' -c 'q'")
+
+  text = file.read
+  file.unlink
+
+  text.lines.each do |line|
+    line = line.strip
+    puts "hi " + line unless line.empty?
+  end
+
+  if vim_out.include?("Error detected while processing")
+    STDERR.puts vim_out
+    exit 1
+  end
+end
+
+def remove_escapes!(str)
+  str.gsub!(/\r/, '')
+  str.gsub!(/\e>/, '')
+  str.gsub!(/\e=/, '')
+  str.gsub!(/\e\[(m|H)/, '')
+  str.gsub!(/\e\[\??((\d|;|=)+?)(m|H|h|r|l|J)/, '')
+  str
+end
+
+def run(cmd)
+  out = ""
+  begin
+    PTY.spawn( cmd ) do |stdin, stdout, pid|
+      begin
+        stdin.each do |line|
+          remove_escapes!(line)
+          out << line
+        end
+      rescue Errno::EIO
+      end
+    end
+  rescue PTY::ChildExited
+  end
+
+  out
+end
+
+main()

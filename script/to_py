@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require 'shellwords'
+require 'fileutils'
+require 'tempfile'
+
+theme = ARGV[0]
+py = theme[0..-4] + "py"
+system "script/vim2pygments #{theme.shellescape} > #{py}"

@@ -1,0 +1,3 @@
+.+?\.(json|html|css|js|mustache)
+^(vim|themes|standard)/.+$
+index\.html

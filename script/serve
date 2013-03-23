@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+STDOUT.sync = true
+
+require 'rbconfig'
+require 'webrick'
+include WEBrick
+
+dir = Dir.pwd
+# port = (ARGV.first || (12000 + (dir.hash % 1000))).to_i
+port = 4100
+
+url = "http://#{Socket.gethostname}:#{port}"
+puts "Serving at: #{url}"
+
+s = HTTPServer.new(
+  :Port            => port,
+  :DocumentRoot    => dir
+)
+
+trap("INT"){ s.shutdown }
+s.start

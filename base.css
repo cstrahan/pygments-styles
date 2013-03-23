@@ -1,0 +1,47 @@
+h1 {
+  color: #333;
+  font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+div.highlight {
+  font-family: Consolas,Menlo,"Courier New",monospace;
+  font-size: 14px;
+  line-height: 18px;
+  overflow-x: auto;
+  border: 1px solid #d5d5d5;
+  background-color: #fafafa;
+}
+
+.item {
+  width: 350px;
+  margin: 10px;
+  float: left;
+}
+
+
+/**** Transitions ****/
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 0.7s;
+     -moz-transition-duration: 0.7s;
+      -ms-transition-duration: 0.7s;
+       -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+}
+
+.masonry {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+      -ms-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
+}

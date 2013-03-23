@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'shellwords'
+require 'fileutils'
+require 'tempfile'
+
+theme = ARGV[0]
+py = theme[0..-4] + "py"
+
+Dir.mktmpdir do |dir|
+  tmp = File.join(dir, File.basename(theme))
+  system "script/vimdump #{theme.shellescape} > #{tmp.shellescape}"
+  system "script/vim2pygments.py #{tmp.shellescape}"
+  FileUtils.rm(tmp)
+end

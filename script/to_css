@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'shellwords'
+require 'fileutils'
+require 'tempfile'
+
+py = ARGV[0]
+theme_name = File.basename(py, ".py")
+css = py[0..-3] + "css"
+
+system "script/install-theme #{py.shellescape}"
+system "pygmentize -f html -S #{theme_name.shellescape} -a .highlight > #{css.shellescape}"

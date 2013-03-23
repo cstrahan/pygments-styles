@@ -1,0 +1,24 @@
+<script id="code" type="text/html">
+{{#styles}}
+<div class="item">
+  <h1>{{ name }}</h1>
+  Download:
+  {{#vim}}
+    <a href="/themes/{{name}}.vim">vim</a>
+  {{/vim}}
+  {{#py}}
+    <a href="/themes/{{name}}.py">py</a>
+  {{/py}}
+  <a href="/themes/{{name}}.css">css</a>
+
+  <div class="highlight theme-{{ name }}"><pre><code class="coffeescript"><span class="c1"># CS</span>
+<span class="k">class</span> <span class="nx">Person</span>
+  <span class="nv">constructor: </span><span class="nf">(@firstName, @lastName) -&gt;</span>
+  <span class="nv">fullName: </span><span class="nf">-&gt;</span> <span class="s">"</span><span class="si">#{</span><span class="nx">@firstName</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@lastName</span><span class="si">}</span><span class="s">"</span>
+
+<span class="nv">bob = </span><span class="k">new</span> <span class="nx">Person</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="s">"Smith"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">bob</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span>
+</code></pre></div>
+</div>
+{{/styles}}
+</script>
