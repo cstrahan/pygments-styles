@@ -9,7 +9,7 @@ BASENAME = File.basename(VIM_THEME, ".vim")
 
 def main
   file = Tempfile.new(BASENAME)
-  vim_out = run("vim -c 'set t_Co=256' -c 'source #{VIM_THEME}' -c 'redir >> #{file.path.shellescape} | silent hi | redir END' -c 'q'")
+  vim_out = run("stty columns 500 && vim -c 'set t_Co=256' -c 'source #{VIM_THEME}' -c 'redir >> #{file.path.shellescape} | silent hi | redir END' -c 'q'")
 
   text = file.read
   file.unlink
@@ -31,6 +31,9 @@ def remove_escapes!(str)
   str.gsub!(/\e=/, '')
   str.gsub!(/\e\[(m|H)/, '')
   str.gsub!(/\e\[\??((\d|;|=)+?)(m|H|h|r|l|J)/, '')
+
+  # if all else fails...
+  str.gsub!(/\e/, '')
   str
 end
 
